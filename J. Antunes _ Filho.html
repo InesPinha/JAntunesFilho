@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="UTF-8">
+    <title>J. Antunes & Filho, Lda.</title> 
+<link rel="shortcut icon" href="/path/to/icons/favicon.ico">
+
+    <style>
+
+@page {
+    size: auto;   /* auto is the initial value */
+    margin: 0;  /* this affects the margin in the printer settings */
+}
+span, Label{
+	 font-family: arial, sans-serif;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+ 
+
+td:nth-child(even), th:nth-child(even) {
+  background-color: #F3E2A9;
+}
+
+ 
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+	</style>
+  </head>
+
+  <body> 
+<div style="  width: 100%;  float: left; margin-bottom: 10px;">
+	<div style="float: left; width: 50%;">
+		<Label>Cliente:</Label>
+		<br>
+		<input id="nomecliente" onchange="onChangeCab()" style="width:95%;padding: 1px; margin-bottom: 8px;" type="text">  
+		<br>
+		<textarea onchange="onChangeCab()"  rows="5" style="width:95%;"></textarea>
+	</div>
+	<div style="float: right; width: 50%;">
+		<Label>Observações:</Label>
+		<br>
+		<textarea onchange="onChangeCab()"  rows="7" style="width:95%;"></textarea>
+	</div>
+</div>
+
+
+ 
+ <img onclick="addLine()"  style="width:40px;" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4IDU4IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1OCA1ODsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxnPgoJPGc+CgkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0VGRUJERTsiIHBvaW50cz0iNDYuNSwxNCAzMi41LDAgMS41LDAgMS41LDU4IDQ2LjUsNTggICAiLz4KCQk8Zz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIGQ9Ik0xMS41LDIzaDI1YzAuNTUyLDAsMS0wLjQ0NywxLTFzLTAuNDQ4LTEtMS0xaC0yNWMtMC41NTIsMC0xLDAuNDQ3LTEsMVMxMC45NDgsMjMsMTEuNSwyM3oiLz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIGQ9Ik0xMS41LDE1aDEwYzAuNTUyLDAsMS0wLjQ0NywxLTFzLTAuNDQ4LTEtMS0xaC0xMGMtMC41NTIsMC0xLDAuNDQ3LTEsMVMxMC45NDgsMTUsMTEuNSwxNXoiLz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIGQ9Ik0zNi41LDI5aC0yNWMtMC41NTIsMC0xLDAuNDQ3LTEsMXMwLjQ0OCwxLDEsMWgyNWMwLjU1MiwwLDEtMC40NDcsMS0xUzM3LjA1MiwyOSwzNi41LDI5eiIvPgoJCQk8cGF0aCBzdHlsZT0iZmlsbDojRDVEMEJCOyIgZD0iTTM2LjUsMzdoLTI1Yy0wLjU1MiwwLTEsMC40NDctMSwxczAuNDQ4LDEsMSwxaDI1YzAuNTUyLDAsMS0wLjQ0NywxLTFTMzcuMDUyLDM3LDM2LjUsMzd6Ii8+CgkJCTxwYXRoIHN0eWxlPSJmaWxsOiNENUQwQkI7IiBkPSJNMzYuNSw0NWgtMjVjLTAuNTUyLDAtMSwwLjQ0Ny0xLDFzMC40NDgsMSwxLDFoMjVjMC41NTIsMCwxLTAuNDQ3LDEtMVMzNy4wNTIsNDUsMzYuNSw0NXoiLz4KCQk8L2c+CgkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIHBvaW50cz0iMzIuNSwwIDMyLjUsMTQgNDYuNSwxNCAgICIvPgoJPC9nPgoJPGc+CgkJPGNpcmNsZSBzdHlsZT0iZmlsbDojNzFDMzg2OyIgY3g9IjQ0LjUiIGN5PSI0NiIgcj0iMTIiLz4KCQk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTUwLjUsNDVoLTV2LTVjMC0wLjU1Mi0wLjQ0OC0xLTEtMXMtMSwwLjQ0OC0xLDF2NWgtNWMtMC41NTIsMC0xLDAuNDQ4LTEsMXMwLjQ0OCwxLDEsMWg1djUgICAgYzAsMC41NTIsMC40NDgsMSwxLDFzMS0wLjQ0OCwxLTF2LTVoNWMwLjU1MiwwLDEtMC40NDgsMS0xUzUxLjA1Miw0NSw1MC41LDQ1eiIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+ 
+  <input style="width:40px;" type="checkbox" checked onclick="onShowTotal(this)" >  
+  <span>Total?</span>  
+  <span id="spanTotal">0</span> 
+
+<img onclick="imprimir()" style="width:40px;float: right;"  src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4IDU4IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1OCA1ODsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxnPgoJPGc+CgkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0VGRUJERTsiIHBvaW50cz0iNDYuNSwxNCAzMi41LDAgMS41LDAgMS41LDU4IDQ2LjUsNTggICAiLz4KCQk8Zz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIGQ9Ik0xMS41LDIzaDI1YzAuNTUyLDAsMS0wLjQ0NywxLTFzLTAuNDQ4LTEtMS0xaC0yNWMtMC41NTIsMC0xLDAuNDQ3LTEsMVMxMC45NDgsMjMsMTEuNSwyM3oiLz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIGQ9Ik0xMS41LDE1aDEwYzAuNTUyLDAsMS0wLjQ0NywxLTFzLTAuNDQ4LTEtMS0xaC0xMGMtMC41NTIsMC0xLDAuNDQ3LTEsMVMxMC45NDgsMTUsMTEuNSwxNXoiLz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIGQ9Ik0zNi41LDI5aC0yNWMtMC41NTIsMC0xLDAuNDQ3LTEsMXMwLjQ0OCwxLDEsMWgyNWMwLjU1MiwwLDEtMC40NDcsMS0xUzM3LjA1MiwyOSwzNi41LDI5eiIvPgoJCQk8cGF0aCBzdHlsZT0iZmlsbDojRDVEMEJCOyIgZD0iTTM2LjUsMzdoLTI1Yy0wLjU1MiwwLTEsMC40NDctMSwxczAuNDQ4LDEsMSwxaDI1YzAuNTUyLDAsMS0wLjQ0NywxLTFTMzcuMDUyLDM3LDM2LjUsMzd6Ii8+CgkJCTxwYXRoIHN0eWxlPSJmaWxsOiNENUQwQkI7IiBkPSJNMzYuNSw0NWgtMjVjLTAuNTUyLDAtMSwwLjQ0Ny0xLDFzMC40NDgsMSwxLDFoMjVjMC41NTIsMCwxLTAuNDQ3LDEtMVMzNy4wNTIsNDUsMzYuNSw0NXoiLz4KCQk8L2c+CgkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0Q1RDBCQjsiIHBvaW50cz0iMzIuNSwwIDMyLjUsMTQgNDYuNSwxNCAgICIvPgoJPC9nPgoJPGc+CgkJPHJlY3QgeD0iMzQuNSIgeT0iMzYiIHN0eWxlPSJmaWxsOiMyMUFFNUU7IiB3aWR0aD0iMjIiIGhlaWdodD0iMjIiLz4KCQk8cmVjdCB4PSI0NC41IiB5PSIzNy41ODYiIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiB3aWR0aD0iMiIgaGVpZ2h0PSIxNiIvPgoJCTxwb2x5Z29uIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBwb2ludHM9IjQ1LjUsNTUgMzguNSw0OC4yOTMgMzkuOTc2LDQ2Ljg3OSA0NS41LDUyLjE3MiA1MS4wMjQsNDYuODc5IDUyLjUsNDguMjkzICAgIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" />
+
+  <img  onclick="sendEmail()" style="width:40px;float: right;"  src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTEyIDUxMi4wMDA3OCIgd2lkdGg9IjUxMnB4Ij48cGF0aCBkPSJtNTExLjk0NTMxMiAxODUuMjY1NjI1djI3Ny41ODU5MzdjMCAxNC4yNDIxODgtNi4wNTg1OTMgMjcuMDYyNS0xNS43MzQzNzQgMzYuMDM1MTU3LTguNzczNDM4IDguMTQwNjI1LTIwLjUxOTUzMiAxMy4xMTMyODEtMzMuNDIxODc2IDEzLjExMzI4MWgtNDEzLjYzNjcxOGMtMTIuOTAyMzQ0IDAtMjQuNjQ4NDM4LTQuOTcyNjU2LTMzLjQxNDA2My0xMy4xMDE1NjItOS42NzE4NzUtOC45ODQzNzYtMTUuNzM0Mzc0NzUtMjEuODA0Njg4LTE1LjczNDM3NDc1LTM2LjA0Njg3NnYtMjc3LjU4NTkzN3ptMCAwIiBmaWxsPSIjZmVjOTcwIi8+PHBhdGggZD0ibTUxMS45NDE0MDYgMTg1LjI2NTYyNS0xOTYuNzc3MzQ0LTE2My44NDc2NTZjLTM0LjI5Njg3NC0yOC41NTg1OTQtODQuMDg5ODQzLTI4LjU1ODU5NC0xMTguMzg2NzE4IDBsLTE5Ni43NzczNDQgMTYzLjg0NzY1NmguMDAzOTA2MjVsNTcuOTk2MDkzNzUgNDguMjg5MDYzIDEzOC43NzczNDQgMTE1LjU1MDc4MWMzNC4zMDA3ODEgMjguNTY2NDA2IDg0LjA5Mzc1IDI4LjU2NjQwNiAxMTguMzgyODEyIDBsMTM4Ljc4OTA2My0xMTUuNTUwNzgxIDU3Ljk5NjA5My00OC4yODkwNjMiIGZpbGw9IiNmYmEwMjgiLz48cGF0aCBkPSJtNDUzLjk0OTIxOSA4My4wMTE3MTl2MTUwLjU0Mjk2OWwtMTM4Ljc4OTA2MyAxMTUuNTUwNzgxYy0zNC4yODkwNjIgMjguNTY2NDA2LTg0LjA4MjAzMSAyOC41NjY0MDYtMTE4LjM4MjgxMiAwbC0xMzguNzc3MzQ0LTExNS41NTA3ODF2LTE1MC41NDI5NjljMC0zMS4zODY3MTkgMjUuNDQ5MjE5LTU2LjgzNTkzOCA1Ni44NDM3NS01Ni44MzU5MzhoMjgyLjI2OTUzMWMzMS4zOTQ1MzEgMCA1Ni44MzU5MzggMjUuNDQ5MjE5IDU2LjgzNTkzOCA1Ni44MzU5Mzh6bTAgMCIgZmlsbD0iI2JmZGFkZCIvPjxwYXRoIGQ9Im00NTMuOTQ5MjE5IDgzLjAxMTcxOXYxMTYuMDYyNWwtMTM4Ljc4OTA2MyAxMTUuNTU0Njg3Yy0zNC4yODkwNjIgMjguNTYyNS04NC4wODIwMzEgMjguNTYyNS0xMTguMzgyODEyIDBsLTEzOC43NzczNDQtMTE1LjU1NDY4N3YtMTE2LjA2MjVjMC0zMS4zODY3MTkgMjUuNDQ5MjE5LTU2LjgzNTkzOCA1Ni44NDM3NS01Ni44MzU5MzhoMjgyLjI2OTUzMWMzMS4zOTQ1MzEgMCA1Ni44MzU5MzggMjUuNDQ5MjE5IDU2LjgzNTkzOCA1Ni44MzU5Mzh6bTAgMCIgZmlsbD0iI2U0ZjVmNyIvPjxwYXRoIGQ9Im00NjQuMjI2NTYyIDQ4MC4xMDE1NjJjLTEuNzY1NjI0IDAtMy41NDI5NjgtLjU5Mzc1LTUuMDA3ODEyLTEuODEyNWwtMTI0Ljk0OTIxOS0xMDQuMDMxMjVjLTMuMzI0MjE5LTIuNzY5NTMxLTMuNzczNDM3LTcuNzEwOTM3LTEuMDA3ODEyLTExLjAzNTE1NiAyLjc2OTUzMS0zLjMyNDIxOCA3LjcxMDkzNy0zLjc3NzM0NCAxMS4wMzUxNTYtMS4wMDc4MTJsMTI0Ljk0NTMxMyAxMDQuMDI3MzQ0YzMuMzI4MTI0IDIuNzY5NTMxIDMuNzgxMjUgNy43MDcwMzEgMS4wMTE3MTggMTEuMDM1MTU2LTEuNTUwNzgxIDEuODYzMjgxLTMuNzgxMjUgMi44MjQyMTgtNi4wMjczNDQgMi44MjQyMTh6bTAgMCIgZmlsbD0iI2ZiYTAyOCIvPjxwYXRoIGQ9Im0xNzcuNDI5Njg4IDM3NC40NjQ4NDQtMTAyLjY3OTY4OCA4Ny43MDcwMzFjLTE0LjE0ODQzOCAxMi4wODU5MzctNy44MjQyMTkgMzUuMTgzNTk0IDEwLjUwNzgxMiAzOC4zNzEwOTQgMjkuNDg4MjgyIDUuMTI1IDYzLjk0NTMxMyAxMC44NzUgNzMuMjEwOTM4IDExLjQ1NzAzMWgtMTA5LjMxNjQwNmMtMTIuOTAyMzQ0IDAtMjQuNjQ4NDM4LTQuOTcyNjU2LTMzLjQxNDA2My0xMy4xMDE1NjItOS42NzE4NzUtOC45ODQzNzYtMTUuNzM0Mzc0NzUtMjEuODA0Njg4LTE1LjczNDM3NDc1LTM2LjA0Mjk2OXYtMjc3LjU4OTg0NGgzNy4xMDE1NjI3NXYxODkuMjIyNjU2Yy4zNTU0NjkgMzguMjUgNDUuMTk5MjE5IDU4Ljc3NzM0NCA3NC41OTc2NTYgMzQuMzA4NTk0bDU1Ljk0OTIxOS00Ni41ODU5MzdjMy4zODI4MTItMi44MDg1OTQgOC40NDkyMTgtMi4yOTY4NzYgMTEuMTg3NSAxLjIwMzEyNCAyLjY0NDUzMSAzLjM3MTA5NCAxLjg4MjgxMiA4LjMxMjUtMS40MTAxNTYgMTEuMDUwNzgyem0wIDAiIGZpbGw9IiNmYmEwMjgiLz48ZyBmaWxsPSIjNGI1MDUxIj48cGF0aCBkPSJtMzcwLjg5ODQzOCAyMjQuOTAyMzQ0aC0yMjkuODQ3NjU3Yy00LjMyODEyNSAwLTcuODM1OTM3LTMuNTA3ODEzLTcuODM1OTM3LTcuODM1OTM4IDAtNC4zMjQyMTggMy41MDc4MTItNy44MzU5MzcgNy44MzU5MzctNy44MzU5MzdoMjI5Ljg0NzY1N2M0LjMyODEyNCAwIDcuODM1OTM3IDMuNTExNzE5IDcuODM1OTM3IDcuODM1OTM3IDAgNC4zMjgxMjUtMy41MDc4MTMgNy44MzU5MzgtNy44MzU5MzcgNy44MzU5Mzh6bTAgMCIvPjxwYXRoIGQ9Im0zNzAuODk4NDM4IDI3MC40MTQwNjJoLTIyOS44NDc2NTdjLTQuMzI4MTI1IDAtNy44MzU5MzctMy41MDc4MTItNy44MzU5MzctNy44MzU5MzdzMy41MDc4MTItNy44MzU5MzcgNy44MzU5MzctNy44MzU5MzdoMjI5Ljg0NzY1N2M0LjMyODEyNCAwIDcuODM1OTM3IDMuNTA3ODEyIDcuODM1OTM3IDcuODM1OTM3cy0zLjUwNzgxMyA3LjgzNTkzNy03LjgzNTkzNyA3LjgzNTkzN3ptMCAwIi8+PHBhdGggZD0ibTM3MC44OTg0MzggMTMzLjg4NjcxOWgtMjI5Ljg0NzY1N2MtNC4zMjgxMjUgMC03LjgzNTkzNy0zLjUxMTcxOS03LjgzNTkzNy03LjgzNTkzOCAwLTQuMzI4MTI1IDMuNTA3ODEyLTcuODM1OTM3IDcuODM1OTM3LTcuODM1OTM3aDIyOS44NDc2NTdjNC4zMjgxMjQgMCA3LjgzNTkzNyAzLjUwNzgxMiA3LjgzNTkzNyA3LjgzNTkzNyAwIDQuMzI0MjE5LTMuNTA3ODEzIDcuODM1OTM4LTcuODM1OTM3IDcuODM1OTM4em0wIDAiLz48cGF0aCBkPSJtMzcwLjg5ODQzOCAxNzkuMzk0NTMxaC0yMjkuODQ3NjU3Yy00LjMyODEyNSAwLTcuODM1OTM3LTMuNTA3ODEyLTcuODM1OTM3LTcuODM1OTM3czMuNTA3ODEyLTcuODM1OTM4IDcuODM1OTM3LTcuODM1OTM4aDIyOS44NDc2NTdjNC4zMjgxMjQgMCA3LjgzNTkzNyAzLjUwNzgxMyA3LjgzNTkzNyA3LjgzNTkzOHMtMy41MDc4MTMgNy44MzU5MzctNy44MzU5MzcgNy44MzU5Mzd6bTAgMCIvPjwvZz48L3N2Zz4K" />
+
+
+
+ 
+
+  <table id="tabela" style="width:100%">
+		  <tr>
+		    <th style="width:13%;">Referencia</th>
+		    <th style="width:6%;">Preço</th> 
+		    <th style="width:5%;">06</th>
+		    <th style="width:5%;">08</th>
+		    <th style="width:5%;">10</th>
+		    <th style="width:5%;">12</th>
+		    <th style="width:5%;">14</th>
+		    <th style="width:5%;">16</th>
+		    <th style="width:5%;">18</th>
+		    <th style="width:5%;">20</th>
+		    <th style="width:5%;">22</th>
+		    <th style="width:5%;">24</th>
+		    <th style="width:5%;">26</th>
+		    <th style="width:5%;">28</th>
+		    <th style="width:5%;">30</th>
+		    <th style="width:5%;">32</th>
+		    <th style="width:5%;"></th>
+		    <th style="width:6%;" >Total</th>
+		  </tr>
+		   
+	</table>
+
+  </body>
+</html>
+<script>
+
+let downloadFeito = false;
+
+window.onbeforeunload = confirmExit;
+function confirmExit() {
+    return "Sair da pagina vai apagar os dados. É mesmo para sair?";
+}
+
+function round(value, decimals) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}
+let _parseFloat = value => {
+    var result;
+    if (value === null || value === undefined) {
+        value = "";
+    }
+    value = value.toString(); // garante string
+    value = value.replace(/ /gi, "").replace(/,/gi, "#").replace(/\./gi, "#");
+    if (value === "") {
+        result = 0;
+    } else {
+        var split = value.split("#");
+        if (split.length > 1) {
+            var slice = split.slice(0, split.length - 1);
+            value = slice.join("") + "." + split[split.length - 1]; // ponto no ultimo
+        } else {
+            value = split[0];
+        }
+        result = parseFloat(value);
+    }
+    return result;
+};
+let calcularTotal = () => {
+    let linhas = document.getElementsByClassName("TotalLinha");
+    let total = 0;
+    for (let i = 0; i < linhas.length; i++) {
+        total += _parseFloat(linhas[i].innerText);
+    }
+    document.getElementById("spanTotal").innerText = round(total, 2);
+    downloadFeito = false;
+};
+
+let onChangeCab = () => {
+    downloadFeito = false;
+};
+
+function sendEmail() {
+    if (downloadFeito === false) {
+        alert("Primeiro fazer o downlod do ficheiro a enviar.")
+    } else {
+        let assunto = 'Encomenda do cliente ' + document.getElementById("nomecliente").value;
+
+        let body = `Segue em anexo a encomenda.
+
+		Obrigada.`;
+
+        window.open('mailto:jantunes.lda@gmail.com?subject=' + assunto + '&body=' + body);
+    }
+}
+function imprimir() {
+    var d = new Date();
+    document.title = document.getElementById("nomecliente").value + " (" + d.toLocaleDateString() + ")";
+    window.onafterprint = () => {
+        document.title = 'J. Antunes & Filho, Lda.';
+        downloadFeito = true;
+    };
+    window.print();
+
+}
+function addLine() {
+    let novaLinha = '<td><input style="width:98%;" type="text"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0" ></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td> ';
+    novaLinha += '<td><input onchange="onChangeTotal(this)" style="width:98%;" type="number" min="0"></td>';
+    novaLinha += '<td><Label class="TotalLinha" /></td>';
+    let table = document.getElementById("tabela");
+    let row = table.insertRow(1);
+    row.innerHTML = novaLinha;
+    downloadFeito = false;
+
+}
+function onChangeTotal(evt) {
+    let tr = evt.parentNode.parentNode;
+    let td = tr.getElementsByTagName('td');
+    let preco = _parseFloat(td[1].getElementsByTagName('input')[0].value);
+    let qtd = 0;
+    for (let i = 2; i < td.length - 1; i++) {
+        qtd += _parseFloat(td[i].getElementsByTagName('input')[0].value);
+    }
+    let l = td[td.length - 1].getElementsByTagName('Label')[0];
+    l.innerText = round((preco * qtd), 2);
+    calcularTotal();
+}
+
+function onShowTotal(checkBox) {
+    var total = document.getElementById("spanTotal");
+    if (checkBox.checked == true) {
+        total.style.display = "inline";
+    } else {
+        total.style.display = "none";
+    }
+}
+
+
+</script>
